@@ -1,0 +1,147 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"mongodb.ObjectId": {
+				"type": "string",
+				"description": "A class representation of the BSON ObjectId type."
+			},
+			"Bid": {
+				"properties": {
+					"productId": {
+						"type": "string"
+					},
+					"buyerId": {
+						"type": "string"
+					},
+					"buyerEmail": {
+						"type": "string"
+					},
+					"bidAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"requestedDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"_id": {
+						"$ref": "#/components/schemas/mongodb.ObjectId"
+					}
+				},
+				"required": [
+					"productId",
+					"buyerId",
+					"buyerEmail",
+					"bidAmount",
+					"requestedDate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "server",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/bid/show-bids/{productId}": {
+			"get": {
+				"operationId": "GetBids",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Bid"
+									},
+									"type": "array",
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the list  of a bids.",
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "productId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/bid": {
+			"post": {
+				"operationId": "SaveBid",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the list  of a bids.",
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Bid"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ping": {
+			"get": {
+				"operationId": "GetPing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

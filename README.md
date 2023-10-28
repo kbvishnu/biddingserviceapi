@@ -1,0 +1,3 @@
+# BiddingServiceAPI
+
+Bidding Service API
